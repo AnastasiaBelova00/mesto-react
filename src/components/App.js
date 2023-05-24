@@ -6,7 +6,6 @@ import EditProfilePopup from "./EditProfilePopup";
 import AddNewPlacePopup from "./AddNewPlacePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import ImagePopup from "./ImagePopup";
-import Card from "./Card";
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
