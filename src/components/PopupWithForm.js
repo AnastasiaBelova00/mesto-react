@@ -16,14 +16,13 @@ export default function PopupWithForm({
           className="popup__button-exit"
           onClick={onClose}
           type="button"
-          value="close"
           aria-label="Кнопка закрытия"
         ></button>
         <h2 className="popup__title">{title}</h2>
-        <form className="popup__form" name={formName} novalidate>
+        <form className="popup__form" name={formName}>
           {children}
 
-          <button className="popup__button-submit" type="submit" value="save">
+          <button className="popup__button-submit" type="submit">
             {buttonText}
           </button>
         </form>

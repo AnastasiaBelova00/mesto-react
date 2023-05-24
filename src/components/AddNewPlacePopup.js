@@ -13,19 +13,17 @@ export default function AddNewPlacePopup(props) {
       <input
         name="title"
         id="title"
-        value=""
         className="popup__input popup__input_el_name-card"
         type="text"
         placeholder="Название"
-        minlength="2"
-        maxlength="40"
+        minLength="2"
+        maxLength="40"
         required
       />
       <span className="popup__error title-error"></span>
       <input
         name="link"
         id="link"
-        value=""
         className="popup__input popup__input_el_link-card"
         type="url"
         placeholder="Ссылка на картинку"

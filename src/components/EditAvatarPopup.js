@@ -13,7 +13,6 @@ export default function EditAvatarPopup(props) {
       <input
         name="avatar"
         id="avatar"
-        value=""
         className="popup__input popup__input_el_avatar"
         type="url"
         placeholder="Ссылка на картинку"

@@ -13,24 +13,22 @@ export default function EditProfilePopup(props) {
       <input
         name="name"
         id="name"
-        value=""
         className="popup__input popup__input_el_name"
         type="text"
         placeholder="Имя"
-        minlength="2"
-        maxlength="40"
+        minLength="2"
+        maxLength="40"
         required
       />
       <span className="popup__error name-error"></span>
       <input
         name="about"
         id="description"
-        value=""
         className="popup__input popup__input_el_description"
         type="text"
         placeholder="Описание"
-        minlength="2"
-        maxlength="200"
+        minLength="2"
+        maxLength="200"
         required
       />
       <span className="popup__error description-error"></span>
