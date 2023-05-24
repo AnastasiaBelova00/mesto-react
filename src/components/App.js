@@ -5,34 +5,36 @@ import Footer from "./Footer";
 import EditProfilePopup from "./EditProfilePopup";
 import AddNewPlacePopup from "./AddNewPlacePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import ImagePopup from "./ImagePopup";
+import Card from "./Card";
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setselectedCard] = useState("");
 
   function handleEditAvatarClick() {
-    // const popup = document.querySelector(".popup_type_avatar");
-    // popup.classList.add("popup_opened");
     setIsEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    // const popup = document.querySelector(".popup_type_profile");
-    // popup.classList.add("popup_opened");
     setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    // const popup = document.querySelector(".popup_type_add-card");
-    // popup.classList.add("popup_opened");
     setIsAddPlacePopupOpen(true);
+  }
+
+  function handleCardClick(card) {
+    setselectedCard(card);
   }
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setselectedCard("");
   }
 
   return (
@@ -44,6 +46,7 @@ export default function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
 
         <Footer />
@@ -62,6 +65,8 @@ export default function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
         />
+
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
     </body>
   );
