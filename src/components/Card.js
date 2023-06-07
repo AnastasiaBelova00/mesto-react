@@ -1,10 +1,27 @@
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import React, { useContext } from "react";
+
 export default function Card(props) {
+  const currentUser = useContext(CurrentUserContext);
+  // Определяем, являемся ли мы владельцем текущей карточки
+  const isOwn = props.card.owner._id === currentUser._id;
+
+  // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
+  const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
+
   function handleClick() {
     props.onCardClick(props.card);
   }
+
   return (
     <li className="element">
-      <button type="button" className="element__button-delete"></button>
+      {isOwn && (
+        <button
+          type="button"
+          className="element__button-delete"
+          // onClick={handleDeleteClick}
+        ></button>
+      )}
       <img
         src={props.link}
         alt={props.name}
@@ -17,7 +34,10 @@ export default function Card(props) {
           <button
             aria-label="Нравится"
             type="button"
-            className="element__button-like"
+            className={`element__button-like ${
+              isLiked && "element__button-like_active"
+            }`}
+            // onClick={handleClickLike}
           ></button>
           <p className="element__like-counter">{props.likes}</p>
         </div>
