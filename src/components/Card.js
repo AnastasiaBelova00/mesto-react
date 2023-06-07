@@ -9,8 +9,20 @@ export default function Card(props) {
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
   const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
 
+  const cardLikeButtonClassName = `element__button-like ${
+    isLiked && "element__button-like_active"
+  }`;
+
   function handleClick() {
     props.onCardClick(props.card);
+  }
+
+  function handleCardLike() {
+    props.onCardLike(props.card);
+  }
+
+  function handleDeleteClick() {
+    props.onCardDelete(props.card);
   }
 
   return (
@@ -19,7 +31,7 @@ export default function Card(props) {
         <button
           type="button"
           className="element__button-delete"
-          // onClick={handleDeleteClick}
+          onClick={handleDeleteClick}
         ></button>
       )}
       <img
@@ -34,12 +46,10 @@ export default function Card(props) {
           <button
             aria-label="Нравится"
             type="button"
-            className={`element__button-like ${
-              isLiked && "element__button-like_active"
-            }`}
-            // onClick={handleClickLike}
+            className={cardLikeButtonClassName}
+            onClick={handleCardLike}
           ></button>
-          <p className="element__like-counter">{props.likes}</p>
+          <p className="element__like-counter">{props.likes.length}</p>
         </div>
       </div>
     </li>

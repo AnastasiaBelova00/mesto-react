@@ -1,6 +1,5 @@
-import React from "react";
-import { useState, useEffect, useContext } from "react";
-import { api } from "../utils/api";
+// import React from "react";
+import { useContext } from "react";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -9,21 +8,11 @@ export default function Main({
   onAddPlace,
   onEditAvatar,
   onCardClick,
+  onCardLike,
+  onCardDelete,
+  cards,
 }) {
-  const [cards, setCards] = useState([]);
-
   const currentUser = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => {
-        console.error(`Ошибка: ${err}`);
-      });
-  }, []);
 
   return (
     <main className="content">
@@ -65,9 +54,11 @@ export default function Main({
             key={card._id}
             link={card.link}
             name={card.name}
-            likes={card.likes.length}
+            likes={card.likes}
             card={card}
             onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
           />
         ))}
       </section>
