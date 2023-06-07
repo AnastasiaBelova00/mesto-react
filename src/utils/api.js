@@ -63,21 +63,21 @@ class Api {
     }).then(this._checkStatus);
   }
 
-  //добавляем лайк
-  addLike(cardId) {
+  //добавляем/убираем лайк
+  changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "PUT",
+      method: isLiked ? "PUT" : "DELETE",
       headers: this._headers,
     }).then(this._checkStatus);
   }
 
-  //убираем лайк
-  deleteLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then(this._checkStatus);
-  }
+  // //убираем лайк
+  // deleteLike(cardId) {
+  //   return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+  //     method: "DELETE",
+  //     headers: this._headers,
+  //   }).then(this._checkStatus);
+  // }
 
   //удаляем карточку
   deleteCard(cardId) {
