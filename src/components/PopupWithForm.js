@@ -11,7 +11,10 @@ export default function PopupWithForm({
   onSubmit,
 }) {
   return (
-    <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+    <div
+      className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}
+      onClick={onClose}
+    >
       <div className="popup__container">
         <button
           className="popup__button-exit"
