@@ -109,6 +109,18 @@ export default function App() {
       });
   }
 
+  function handleAddPlaceSubmit(data) {
+    api
+      .addCard(data)
+      .then((res) => {
+        setCards([res, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -149,6 +161,7 @@ export default function App() {
           <AddNewPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
+            onUpdatePlace={handleAddPlaceSubmit}
           />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
