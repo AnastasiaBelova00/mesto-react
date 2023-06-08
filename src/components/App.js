@@ -85,6 +85,30 @@ export default function App() {
       });
   }
 
+  function handleUpdateUser(data) {
+    api
+      .editUserInfo(data)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  }
+
+  function handleUpdateAvatar(data) {
+    api
+      .changeUserAvatar(data)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -113,11 +137,13 @@ export default function App() {
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
           />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
 
           <AddNewPlacePopup

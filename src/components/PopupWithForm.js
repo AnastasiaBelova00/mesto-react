@@ -8,6 +8,7 @@ export default function PopupWithForm({
   formName,
   isOpen,
   onClose,
+  onSubmit,
 }) {
   return (
     <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
@@ -19,7 +20,7 @@ export default function PopupWithForm({
           aria-label="Кнопка закрытия"
         ></button>
         <h2 className="popup__title">{title}</h2>
-        <form className="popup__form" name={formName}>
+        <form className="popup__form" name={formName} onSubmit={onSubmit}>
           {children}
 
           <button className="popup__button-submit" type="submit">
