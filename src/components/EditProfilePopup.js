@@ -12,7 +12,7 @@ export default function EditProfilePopup(props) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, props.isOpen]);
 
   // Обработчик изменения инпута обновляет стейт
   function handleNameChange(e) {
@@ -39,14 +39,14 @@ export default function EditProfilePopup(props) {
       name="profile"
       onSubmit={handleSubmit}
       title="Редактировать профиль"
-      buttonText="Сохранить"
+      buttonText={props.onLoading ? "Сохранение..." : "Сохранить"}
       formName="editForm"
       isOpen={props.isOpen}
       onClose={props.onClose}
     >
       <input
         name="name"
-        value={name}
+        value={name || ""}
         onChange={handleNameChange}
         id="name"
         className="popup__input popup__input_el_name"
@@ -59,7 +59,7 @@ export default function EditProfilePopup(props) {
       <span className="popup__error name-error"></span>
       <input
         name="about"
-        value={description}
+        value={description || ""}
         onChange={handleDescriptionChange}
         id="description"
         className="popup__input popup__input_el_description"

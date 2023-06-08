@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export default function AddNewPlacePopup(props) {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
+
+  useEffect(() => {
+    setTitle("");
+    setLink("");
+  }, [props.isOpen]);
 
   // Обработчик изменения инпута обновляет стейт
   function handleTitleChange(e) {
@@ -26,7 +31,7 @@ export default function AddNewPlacePopup(props) {
     <PopupWithForm
       name="add-card"
       title="Новое место"
-      buttonText="Сохранить"
+      buttonText={props.onLoading ? "Сохранение..." : "Создать"}
       formName="addCardForm"
       isOpen={props.isOpen}
       onClose={props.onClose}
@@ -34,7 +39,7 @@ export default function AddNewPlacePopup(props) {
     >
       <input
         name="title"
-        value={title}
+        value={title || ""}
         onChange={handleTitleChange}
         id="title"
         className="popup__input popup__input_el_name-card"
@@ -48,7 +53,7 @@ export default function AddNewPlacePopup(props) {
       <input
         name="link"
         id="link"
-        value={link}
+        value={link || ""}
         onChange={handleLinkChange}
         className="popup__input popup__input_el_link-card"
         type="url"

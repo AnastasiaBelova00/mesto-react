@@ -11,35 +11,23 @@ import { api } from "../utils/api";
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState("");
-
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setCurrentUser(res);
-      })
-      .catch((err) => {
-        console.error(`Ошибка: ${err}`);
-      });
-  }, []);
-
   const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => {
-        console.error(`Ошибка: ${err}`);
-      });
-  }, []);
-
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({ name: "", link: "" });
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userInfo, cardInfo]) => {
+        setCurrentUser(userInfo);
+        setCards(cardInfo);
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      });
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -86,6 +74,7 @@ export default function App() {
   }
 
   function handleUpdateUser(data) {
+    setIsLoading(true);
     api
       .editUserInfo(data)
       .then((res) => {
@@ -94,10 +83,14 @@ export default function App() {
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleUpdateAvatar(data) {
+    setIsLoading(true);
     api
       .changeUserAvatar(data)
       .then((res) => {
@@ -106,10 +99,14 @@ export default function App() {
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleAddPlaceSubmit(data) {
+    setIsLoading(true);
     api
       .addCard(data)
       .then((newCard) => {
@@ -118,6 +115,9 @@ export default function App() {
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -150,18 +150,21 @@ export default function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+            onLoading={isLoading}
           />
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            onLoading={isLoading}
           />
 
           <AddNewPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onUpdatePlace={handleAddPlaceSubmit}
+            onLoading={isLoading}
           />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
