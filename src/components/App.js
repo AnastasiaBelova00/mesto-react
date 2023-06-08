@@ -112,8 +112,8 @@ export default function App() {
   function handleAddPlaceSubmit(data) {
     api
       .addCard(data)
-      .then((res) => {
-        setCards([res, ...cards]);
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
