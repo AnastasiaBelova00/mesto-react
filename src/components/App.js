@@ -29,6 +29,22 @@ export default function App() {
       });
   }, []);
 
+  // function handleEscClose(evt) {
+  //   if (evt.key === "Escape") {
+  //     closeAllPopups();
+  //   }
+  // }
+
+  //закрытие на ESC
+  useEffect(() => {
+    const close = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+    window.addEventListener("keydown", close);
+  }, []);
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
